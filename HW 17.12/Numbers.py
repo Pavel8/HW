@@ -1,17 +1,14 @@
 import unittest
 
-class Cisla
+class Cisla:
     def __init__(self):
-        self.set_cisel = set(10,20,30)
+        self.set_cisel = {10,20,30}
     
     def soucet(self):
             return sum(self.set_cisel)
     
     def ar_mean(self):
-            if len(self.set_cisel) > 0:
-                return sum(self.set_cisel) / len(self.set_cisel)
-            else:
-                return None
+        return sum(self.set_cisel) / len(self.set_cisel) if self.set_cisel else None
             
     def maximum(self):
         if self.set_cisel:
@@ -52,4 +49,8 @@ class TestCisla(unittest.TestCase):
         
         self.assertEqual(empty_cisla.soucet(), 0) 
         self.assertIsNone(empty_cisla.ar_mean())  
-        self.assertIsNone(empty_cisla.maximum())  
+        self.assertIsNone(empty_cisla.maximum())
+
+# Run the tests
+if __name__ == '__main__':
+    unittest.main()
