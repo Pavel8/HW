@@ -58,22 +58,6 @@ def process_payment():
     print("Platba je zpracována (tento krok bude později rozšířen).")
 
 
-# Funkce pro admin menu
-def admin_menu():
-    print("\n--- Admin menu ---")
-    print("1. Zobrazit statistiky prodeje")
-    print("2. Vrátit se do hlavního menu")
-
-    choice = input("Vyberte možnost: ")
-
-    if choice == '1':7
-        print("Zobrazení statistik prodeje (tento krok bude později implementován).")
-    elif choice == '2':
-        pass
-    else:
-        print("Neplatná volba.")
-
-
 class Sales:
     _instance = None
 
