@@ -1,3 +1,5 @@
+from Pizza_classes import Pizza
+
 # Order třída
 class Order:
     def __init__(self):

@@ -1,5 +1,6 @@
 from Pizza_classes import *
 from Order_Sales import *
+from Pizza_menu import main_menu
 
 
 # Admin menu pro správu pizzy a toppingů
