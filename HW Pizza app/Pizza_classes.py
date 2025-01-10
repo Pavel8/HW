@@ -10,25 +10,9 @@ class Topping:
 
 # Pizza třída
 class Pizza:
-    def __init__(self, name: str):
+    def __init__(self, name: str, medium_price: float, large_price: float):
         self.name = name
-        self.sizes = {"Medium": None, "Large": None}  # Prices for each size
-        self.toppings = []
-
-    def set_price(self, medium_price: float, large_price: float):
-        self.sizes["Medium"] = medium_price
-        self.sizes["Large"] = large_price
-
-    def add_topping(self, topping: Topping, size: str):
-        self.toppings.append((topping, size))
-
-    def calculate_price(self, size: str):
-        total_price = self.sizes[size]
-        for topping, topping_size in self.toppings:
-            if topping_size == size:
-                total_price += topping.price_medium if size == "Medium" else topping.price_large
-        return total_price
+        self.sizes = {"Medium": medium_price, "Large": large_price}
 
     def __str__(self):
-        toppings_str = ', '.join(str(topping) for topping, _ in self.toppings)
-        return f"{self.name} - {toppings_str}"
+        return f"{self.name} - Medium: {self.sizes['Medium']}€, Large: {self.sizes['Large']}€"

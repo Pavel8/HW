@@ -23,3 +23,8 @@ def main_menu():
             break
         else:
             print("Neplatná volba, zkuste znovu.")
+
+
+# Spuštění hlavního menu
+if __name__ == "__main__":
+    main_menu()

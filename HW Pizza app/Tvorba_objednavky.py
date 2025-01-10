@@ -10,7 +10,7 @@ def create_order():
     print("Dostupné pizzy:")
 
     for i, pizza in enumerate(pizza_menu):
-        print(f"{i + 1}. {pizza.name} (Medium: {pizza.sizes['Medium']}€, Large: {pizza.sizes['Large']}€)")
+        print(f"{i + 1}. {pizza}")
 
     pizza_choice = int(input("Vyberte pizzu (číslo): ")) - 1
     selected_pizza = pizza_menu[pizza_choice]
