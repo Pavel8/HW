@@ -1,10 +1,13 @@
 from Order_Sales import Order
+from Data_Pizza import load_pizza_menu
+from Data_Pizza import pizza_menu
+from Data_Pizza import topping_menu
 
-# Globální seznamy pro pizzy a toppingy
-pizza_menu = []
-topping_menu = []
 
 def create_order():
+    # Načteme pizza menu při spuštění aplikace
+    load_pizza_menu()
+
     order = Order()
     print("\n--- Vytvoření objednávky ---")
     print("Dostupné pizzy:")

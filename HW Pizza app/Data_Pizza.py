@@ -1,42 +1,36 @@
 import json
 from Pizza_classes import *
 
-
-def save_data():
-    pizza_data = [{
-        "name": pizza.name,
-        "sizes": pizza.sizes
-    } for pizza in pizza_menu]
-
-    topping_data = [{
-        "name": topping.name,
-        "price_medium": topping.price_medium,
-        "price_large": topping.price_large
-    } for topping in topping_menu]
-
-    with open('pizza_data.json', 'w') as pizza_file:
-        json.dump(pizza_data, pizza_file, indent=4)
-
-    with open('topping_data.json', 'w') as topping_file:
-        json.dump(topping_data, topping_file, indent=4)
-    print("Data byla úspěšně uložena.")
+# Globální seznamy pro pizzy a toppingy
+pizza_menu = []
+topping_menu = []
 
 
-def load_data():
-    global pizza_menu, topping_menu
-
+# Funkce pro načítání pizz ze souboru
+def load_pizza_menu():
     try:
-        with open('pizza_data.json', 'r') as pizza_file:
-            pizza_data = json.load(pizza_file)
-            pizza_menu = [Pizza(pizza['name'], pizza['sizes']['Medium'], pizza['sizes']['Large']) for pizza in
-                          pizza_data]
+        # Načteme data ze souboru pizza_data.json
+        with open("pizza_data.json", "r") as file:
+            pizza_data = json.load(file)
 
-        with open('topping_data.json', 'r') as topping_file:
-            topping_data = json.load(topping_file)
-            topping_menu = [Topping(topping['name'], topping['price_medium'], topping['price_large']) for topping in
-                            topping_data]
-
-        print("Data byla úspěšně načtena.")
+        # Obnovíme seznam pizz z načtených dat
+        for pizza_info in pizza_data:
+            pizza = Pizza(pizza_info["name"])
+            pizza.set_price(pizza_info["sizes"]["Medium"], pizza_info["sizes"]["Large"])
+            pizza_menu.append(pizza)
+        print("Pizzy byly úspěšně načteny.")
 
     except FileNotFoundError:
-        print("Soubor neexistuje. Začínáme s prázdným seznamem.")
+        # Pokud soubor neexistuje, vypíšeme informaci a pokračujeme bez načítání
+        print("Soubor s pizzami nenalezen, začínáme s prázdným seznamem pizz.")
+
+
+# Funkce pro ukládání pizz do souboru
+def save_pizza_menu():
+    # Vytvoření seznamu pro uložení do souboru
+    pizza_data = [{"name": pizza.name, "sizes": pizza.sizes} for pizza in pizza_menu]
+
+    # Uložení seznamu pizz do souboru pizza_data.json
+    with open("pizza_data.json", "w") as file:
+        json.dump(pizza_data, file, indent=4)
+    print("Pizzy byly úspěšně uloženy.")

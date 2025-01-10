@@ -29,14 +29,40 @@ def admin_menu():
     else:
         print("Neplatná volba.")
 
+
+#funkce na zadavani ceny
+def get_float_input(prompt: str) -> float:
+    while True:
+        try:
+            # Přečteme vstup od uživatele
+            user_input = input(prompt)
+
+            # Nahradíme čárku tečkou
+            user_input = user_input.replace(",", ".")
+
+            # Pokusíme se převést na float
+            value = float(user_input)
+
+            # Zkontrolujeme, zda je hodnota kladná
+            if value < 0:
+                print("Cena musí být kladná.")
+            else:
+                return value  # Pokud je vstup validní, vrátíme hodnotu
+
+        except ValueError:  # Pokud nastane chyba při převodu na float
+            print("Neplatný vstup, zadejte číselnou hodnotu.")
+
+
 def add_pizza():
     pizza_name = input("Zadejte název pizzy: ")
-    medium_price = get_float_input("Zadejte cenu pro Medium: ")
-    large_price = get_float_input("Zadejte cenu pro Large: ")
+    medium_price = get_float_input("Zadejte cenu pro Medium: ")  # Funkce pro zajištění správného formátu
+    large_price = get_float_input("Zadejte cenu pro Large: ")    # Funkce pro zajištění správného formátu
 
+    # Vytvoření nové instance pizzy s předanými argumenty
     new_pizza = Pizza(pizza_name, medium_price, large_price)
     pizza_menu.append(new_pizza)
     print(f"Pizzu {pizza_name} byla úspěšně přidána.")
+
 
 def add_topping():
     topping_name = input("Zadejte název toppingu: ")
@@ -71,11 +97,3 @@ def display_topping_menu():
 pizza_menu = []
 topping_menu = []
 
-# Instance pro správu objednávek a tržeb
-sales = Sales()
-
-# Příklad přidání počátečních položek
-topping_menu.append(Topping("Mozzarella", 1.0, 1.2))
-topping_menu.append(Topping("Salam", 1.5, 1.8))
-pizza_menu.append(Pizza("Margarita"))
-pizza_menu[0].set_price(5.0, 6.0)
