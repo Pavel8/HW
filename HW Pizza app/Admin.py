@@ -1,3 +1,7 @@
+from Pizza_classes import *
+from Order_Sales import *
+
+
 # Admin menu pro správu pizzy a toppingů
 def admin_menu():
     print("\n--- Admin menu ---")

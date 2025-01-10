@@ -1,3 +1,9 @@
+from Order_Sales import Order
+
+# Globální seznamy pro pizzy a toppingy
+pizza_menu = []
+topping_menu = []
+
 def create_order():
     order = Order()
     print("\n--- Vytvoření objednávky ---")

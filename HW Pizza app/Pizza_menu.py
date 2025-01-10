@@ -1,3 +1,7 @@
+from Tvorba_objednavky import create_order
+from Platba import process_payment
+from Admin import admin_menu
+
 def main_menu():
     while True:
         print("\n--- Pizza Ordering App ---")
