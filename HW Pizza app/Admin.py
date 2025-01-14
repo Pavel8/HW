@@ -73,7 +73,7 @@ def add_pizza():
     print("Aktuální seznam pizz:", pizza_menu)
 
     # Uložení aktualizovaného seznamu pizz
-    save_pizza_menu()
+    save_pizza_menu(pizza_menu)
 
 
 
