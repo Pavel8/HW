@@ -1,8 +1,12 @@
 from Tvorba_objednavky import create_order
 from Platba import process_payment
 from Admin import admin_menu
+from Data_Pizza import load_pizza_menu
+from Data_Pizza import load_topping_menu
 
 def main_menu():
+    # Načti pizzy a toppingy při spuštění aplikace
+
     while True:
         print("\n--- Pizza Ordering App ---")
         print("1. Vytvořit objednávku")

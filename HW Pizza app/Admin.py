@@ -1,5 +1,7 @@
 from Pizza_classes import *
 from Order_Sales import *
+from Data_Pizza import save_pizza_menu
+from Order_Sales import Sales
 
 
 # Admin menu pro správu pizzy a toppingů
@@ -19,7 +21,7 @@ def admin_menu():
     elif choice == '2':
         add_topping()
     elif choice == '3':
-        print(sales.get_sales_report())
+        print(Sales.get_sales_report())
     elif choice == '4':
         display_pizza_menu()
     elif choice == '5':
@@ -55,13 +57,25 @@ def get_float_input(prompt: str) -> float:
 
 def add_pizza():
     pizza_name = input("Zadejte název pizzy: ")
-    medium_price = get_float_input("Zadejte cenu pro Medium: ")  # Funkce pro zajištění správného formátu
-    large_price = get_float_input("Zadejte cenu pro Large: ")    # Funkce pro zajištění správného formátu
+    try:
+        medium_price = float(input("Zadejte cenu pro Medium: "))
+        large_price = float(input("Zadejte cenu pro Large: "))
+    except ValueError:
+        print("Neplatný vstup. Cena musí být číslo.")
+        return
 
     # Vytvoření nové instance pizzy s předanými argumenty
     new_pizza = Pizza(pizza_name, medium_price, large_price)
     pizza_menu.append(new_pizza)
     print(f"Pizzu {pizza_name} byla úspěšně přidána.")
+
+    # Ladicí výpis
+    print("Aktuální seznam pizz:", pizza_menu)
+
+    # Uložení aktualizovaného seznamu pizz
+    save_pizza_menu()
+
+
 
 
 def add_topping():

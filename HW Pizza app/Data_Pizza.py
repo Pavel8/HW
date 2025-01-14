@@ -1,36 +1,96 @@
-import json
-from Pizza_classes import *
-
-# Globální seznamy pro pizzy a toppingy
-pizza_menu = []
-topping_menu = []
+import csv
+import os
+from Pizza_classes import Pizza, Topping
 
 
-# Funkce pro načítání pizz ze souboru
+
+# Výchozí seznam pizz
+pizza_menu = [
+    Pizza("Margherita", 5.0,  7.0),
+    Pizza("Pepperoni", 6.0,  8.0),
+    Pizza("Vegetarian", 5.0,  7.0),
+    Pizza("Hawaiian", 5.0,  7.0),
+
+]
+
+# Výchozí seznam toppingů
+topping_menu = [
+    Topping("Olives", 1.0),
+    Topping("Mushrooms", 1.2),
+    Topping("Pepperoni", 1.5),
+    Topping("Onions", 0.8),
+    Topping("Ham", 1.5),
+    Topping("Pineapple", 1.3),
+    Topping("Bacon", 1.7),
+    Topping("Extra Cheese", 1.4),
+    Topping("Green Peppers", 1.0),
+    Topping("Tomatoes", 0.9)
+]
+
+# Funkce pro uložení menu do CSV souboru
+# Funkce pro uložení menu do CSV souboru
+def save_pizza_menu():
+    try:
+        with open("Pizza_databaze.csv", "w", newline="") as file:
+            writer = csv.writer(file)
+            # Zápis hlavičky
+            writer.writerow(["Name", "MediumPrice", "LargePrice"])
+            # Zápis dat
+            for pizza in pizza_menu:
+                if isinstance(pizza.sizes, dict) and "Medium" in pizza.sizes and "Large" in pizza.sizes:
+                    if isinstance(pizza.sizes["Medium"], (int, float)) and isinstance(pizza.sizes["Large"], (int, float)):
+                        writer.writerow([pizza.name, pizza.sizes["Medium"], pizza.sizes["Large"]])
+                    else:
+                        print(f"Chybný formát cen u pizzy: {pizza.name}")
+                else:
+                    print(f"Chybné nebo neúplné informace o velikostech u pizzy: {pizza}")
+        print("Pizzy byly úspěšně uloženy do Pizza_databaze.csv.")
+    except Exception as e:
+        print(f"Chyba při ukládání pizz: {e}")
+
+
+
+
 def load_pizza_menu():
     try:
-        # Načteme data ze souboru pizza_data.json
-        with open("pizza_data.json", "r") as file:
-            pizza_data = json.load(file)
+        if not os.path.exists("Pizza_databaze.csv") or os.path.getsize("Pizza_databaze.csv") == 0:
+            print("Soubor Pizza_databaze.csv neexistuje nebo je prázdný. Ukládám výchozí pizzy.")
+            save_pizza_menu()
+        else:
+            with open("Pizza_databaze.csv", "r") as file:
+                reader = csv.reader(file)
+                next(reader)  # Přeskočení hlavičky
+                for row in reader:
+                    name, medium_price, large_price = row
+                    pizza_menu.append(Pizza(name, {"Medium": float(medium_price)}, {"Large": float(large_price)}))
+            print("Pizzy byly úspěšně načteny z Pizza_databaze.csv.")
+    except Exception as e:
+        print(f"Chyba při načítání pizz: {e}")
 
-        # Obnovíme seznam pizz z načtených dat
-        for pizza_info in pizza_data:
-            pizza = Pizza(pizza_info["name"])
-            pizza.set_price(pizza_info["sizes"]["Medium"], pizza_info["sizes"]["Large"])
-            pizza_menu.append(pizza)
-        print("Pizzy byly úspěšně načteny.")
+def save_topping_menu():
+    try:
+        with open("Topping_databaze.csv", "w", newline="") as file:
+            writer = csv.writer(file)
+            writer.writerow(["Name", "Price"])
+            for topping in topping_menu:
+                writer.writerow([topping.name, topping.price])
+        print("Toppingy byly úspěšně uloženy do Topping_databaze.csv.")
+    except Exception as e:
+        print(f"Chyba při ukládání toppingů: {e}")
 
-    except FileNotFoundError:
-        # Pokud soubor neexistuje, vypíšeme informaci a pokračujeme bez načítání
-        print("Soubor s pizzami nenalezen, začínáme s prázdným seznamem pizz.")
-
-
-# Funkce pro ukládání pizz do souboru
-def save_pizza_menu():
-    # Vytvoření seznamu pro uložení do souboru
-    pizza_data = [{"name": pizza.name, "sizes": pizza.sizes} for pizza in pizza_menu]
-
-    # Uložení seznamu pizz do souboru pizza_data.json
-    with open("pizza_data.json", "w") as file:
-        json.dump(pizza_data, file, indent=4)
-    print("Pizzy byly úspěšně uloženy.")
+def load_topping_menu():
+    try:
+        if not os.path.exists("Topping_databaze.csv") or os.path.getsize("Topping_databaze.csv") == 0:
+            print("Soubor Topping_databaze.csv neexistuje nebo je prázdný. Ukládám výchozí toppingy.")
+            topping_menu.extend(topping_menu)
+            save_topping_menu()
+        else:
+            with open("Topping_databaze.csv", "r") as file:
+                reader = csv.reader(file)
+                next(reader)  # Přeskočení hlavičky
+                for row in reader:
+                    name, price = row
+                    topping_menu.append(Topping(name, float(price)))
+            print("Toppingy byly úspěšně načteny z Topping_databaze.csv.")
+    except Exception as e:
+        print(f"Chyba při načítání toppingů: {e}")
