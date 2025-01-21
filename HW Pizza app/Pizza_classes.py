@@ -24,6 +24,8 @@ class Pizza:
     def __repr__(self):
         return f"Pizza(name={self.name}, sizes={self.sizes}, toppings={self.toppings})"
 
+    def __str__(self):
+        return f"Pizza(name={self.name}, sizes={self.sizes}, toppings={self.toppings})"
 
 class Topping:
     def __init__(self, name: str, price: float):

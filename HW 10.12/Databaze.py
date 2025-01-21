@@ -22,10 +22,10 @@ class Tax_data:
     def delete_penalty(self, id, penalty):
         osoba = self.people.get(id)
         if osoba:
+
             osoba.remove_penalty(penalty)
         else:
             print(f"Osoba s ID {id} nebyla nalezena.")
-
 
     def replace_person_info(self, id, name=None, address=None):
         osoba = self.people.get(id)

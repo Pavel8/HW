@@ -29,14 +29,16 @@ topping_menu = [
 
 # Funkce pro uložení menu do CSV souboru
 # Funkce pro uložení menu do CSV souboru
-def save_pizza_menu():
+def save_pizza_menu(data):
     try:
-        with open("Pizza_databaze.csv", "w", newline="") as file:
+        with open("Pizza_databaze.csv", "a", newline="") as file:
+            #file.write(f"{data[0]}")
             writer = csv.writer(file)
             # Zápis hlavičky
             writer.writerow(["Name", "MediumPrice", "LargePrice"])
             # Zápis dat
-            for pizza in pizza_menu:
+            for pizza in data:
+                print("TESSSSTTT")
                 if isinstance(pizza.sizes, dict) and "Medium" in pizza.sizes and "Large" in pizza.sizes:
                     if isinstance(pizza.sizes["Medium"], (int, float)) and isinstance(pizza.sizes["Large"], (int, float)):
                         writer.writerow([pizza.name, pizza.sizes["Medium"], pizza.sizes["Large"]])
@@ -51,7 +53,7 @@ def save_pizza_menu():
 
 
 
-def load_pizza_menu():
+def load_pizza_menu(data):
     try:
         if not os.path.exists("Pizza_databaze.csv") or os.path.getsize("Pizza_databaze.csv") == 0:
             print("Soubor Pizza_databaze.csv neexistuje nebo je prázdný. Ukládám výchozí pizzy.")
@@ -62,7 +64,7 @@ def load_pizza_menu():
                 next(reader)  # Přeskočení hlavičky
                 for row in reader:
                     name, medium_price, large_price = row
-                    pizza_menu.append(Pizza(name, {"Medium": float(medium_price)}, {"Large": float(large_price)}))
+                    data.append(Pizza(name, {"Medium": float(medium_price)}, {"Large": float(large_price)}))
             print("Pizzy byly úspěšně načteny z Pizza_databaze.csv.")
     except Exception as e:
         print(f"Chyba při načítání pizz: {e}")
