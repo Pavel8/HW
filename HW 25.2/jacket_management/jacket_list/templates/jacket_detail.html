@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Detail bundy{% endblock %}
+
+{% block content %}
+    <h2>Detail bundy</h2>
+    <p><strong>Značka:</strong> {{ jacket.brand }}</p>
+    <p><strong>Barva:</strong> {{ jacket.color }}</p>
+
+    <a href="{% url 'add-jacket' %}" class="btn btn-primary">Přidat novou bundu</a>  <!-- Možnost přidání nové bundy -->
+    <a href="{% url 'jacket-update' jacket.pk %}" class="btn btn-warning">Upravit bundu</a>  <!-- Odkaz na úpravu bundy -->
+    <form action="{% url 'jacket-delete' jacket.pk %}" method="post" style="display:inline;">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Vymazat bundu</button>
+    </form>
+{% endblock %}
+

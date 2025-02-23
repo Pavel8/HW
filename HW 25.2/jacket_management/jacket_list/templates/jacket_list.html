@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}Seznam bund{% endblock %}
+
+{% block content %}
+    <h2>Seznam bund</h2>
+    <a href="{% url 'add-jacket' %}" class="btn btn-primary">Přidat novou bundu</a>
+    <ul>
+        {% for jacket in jackets %}
+            <li>{{ jacket.brand }} - {{ jacket.color }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

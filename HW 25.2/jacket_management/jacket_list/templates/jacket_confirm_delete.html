@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Potvrzení smazání{% endblock %}
+
+{% block content %}
+    <h2>Oprava: Opravdu chcete smazat tuto bundu?</h2>
+    <p><strong>Značka:</strong> {{ jacket.brand }}</p>
+    <p><strong>Barva:</strong> {{ jacket.color }}</p>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Smazat bundu</button>
+    </form>
+    <a href="{% url 'jacket-list' %}" class="btn btn-secondary">Zpět na seznam bund</a>
+{% endblock %}
