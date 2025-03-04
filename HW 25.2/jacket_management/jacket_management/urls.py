@@ -18,8 +18,10 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
-    path('admin/', admin.site.urls),  # Odkaz na administraci
-    path('', include('core.urls')),  # Domovská stránka a odkazy na core aplikaci
-    path('jackets/', include('jacket_list.urls')),  # Odkazy na aplikaci jacket_list
+    path('admin/', admin.site.urls),
+    path('', include('core.urls')),
+    path('jackets/', include('jacket_list.urls')),
+    path('accounts/', include('accounts.urls')),
+    path('pizza/', include('pizza_builder.urls')),
 ]
 

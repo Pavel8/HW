@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Můj profil{% endblock %}
+
+{% block content %}
+<div class="profile-container">
+    <h2 class="profile-title">Vítejte, {{ user.username }}!</h2>
+
+    <div class="profile-info">
+        <!-- Profilový obrázek -->
+        <div class="profile-image">
+        </div>
+
+        <div class="profile-details">
+            <h3>Osobní informace</h3>
+            <p><strong>Uživatelské jméno:</strong> {{ user.username }}</p>
+            <p><strong>Email:</strong> {{ user.email }}</p>
+            <p><strong>Datum registrace:</strong> {{ user.date_joined|date:"d. F Y" }}</p>
+        </div>
+    </div>
+
+    <div class="profile-actions">
+    </div>
+</div>
+{% endblock %}
